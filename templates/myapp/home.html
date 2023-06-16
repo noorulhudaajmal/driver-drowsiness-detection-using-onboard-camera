@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% load static %}
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="{% static 'example.css' %}" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+      crossorigin="anonymous"
+    ></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+      .wf-force-outline-none[tabindex="-1"]:focus {
+        outline: none;
+      }
+    </style>
+    <meta charset="utf-8" />
+    <title>{% block title %}Home{% endblock %}</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <link
+      href="{% static "home.css" %}"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script
+      src="https://use.typekit.net/fet2nms.js"
+      type="text/javascript"
+    ></script>
+    <style type="text/css">
+      .tk-proxima-nova {
+        font-family: "proxima-nova", sans-serif;
+      }
+      .tk-proxima-nova-condensed {
+        font-family: "proxima-nova-condensed", sans-serif;
+      }
+      .tk-proxima-nova-extra-condensed {
+        font-family: "proxima-nova-extra-condensed", sans-serif;
+      }
+    </style>
+    <style type="text/css">
+      @font-face {
+        font-family: proxima-nova;
+        src: url(https://use.typekit.net/af/2555e1/00000000000000007735e603/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3)
+            format("woff2"),
+          url(https://use.typekit.net/af/2555e1/00000000000000007735e603/30/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3)
+            format("woff"),
+          url(https://use.typekit.net/af/2555e1/00000000000000007735e603/30/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3)
+            format("opentype");
+        font-weight: 700;
+        font-style: normal;
+        font-stretch: normal;
+        font-display: auto;
+      }
+      @font-face {
+        font-family: proxima-nova;
+        src: url(https://use.typekit.net/af/4de20a/00000000000000007735e604/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i7&v=3)
+            format("woff2"),
+          url(https://use.typekit.net/af/4de20a/00000000000000007735e604/30/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i7&v=3)
+            format("woff"),
+          url(https://use.typekit.net/af/4de20a/00000000000000007735e604/30/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i7&v=3)
+            format("opentype");
+        font-weight: 700;
+        font-style: italic;
+        font-stretch: normal;
+        font-display: auto;
+      }
+      @font-face {
+        font-family: proxima-nova;
+        src: url(https://use.typekit.net/af/efe4a5/00000000000000007735e609/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3)
+            format("woff2"),
+          url(https://use.typekit.net/af/efe4a5/00000000000000007735e609/30/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3)
+            format("woff"),
+          url(https://use.typekit.net/af/efe4a5/00000000000000007735e609/30/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3)
+            format("opentype");
+        font-weight: 400;
+        font-style: normal;
+        font-stretch: normal;
+        font-display: auto;
+      }
+      @font-face {
+        font-family: proxima-nova;
+        src: url(https://use.typekit.net/af/3322cc/00000000000000007735e616/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3)
+            format("woff2"),
+          url(https://use.typekit.net/af/3322cc/00000000000000007735e616/30/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3)
+            format("woff"),
+          url(https://use.typekit.net/af/3322cc/00000000000000007735e616/30/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3)
+            format("opentype");
+        font-weight: 400;
+        font-style: italic;
+        font-stretch: normal;
+        font-display: auto;
+      }
+      @font-face {
+        font-family: proxima-nova-condensed;
+        src: url(https://use.typekit.net/af/15606c/00000000000000007735e60c/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3)
+            format("woff2"),
+          url(https://use.typekit.net/af/15606c/00000000000000007735e60c/30/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3)
+            format("woff"),
+          url(https://use.typekit.net/af/15606c/00000000000000007735e60c/30/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3)
+            format("opentype");
+        font-weight: 700;
+        font-style: normal;
+        font-stretch: normal;
+        font-display: auto;
+      }
+      @font-face {
+        font-family: proxima-nova-condensed;
+        src: url(https://use.typekit.net/af/1ea53e/00000000000000007735e61d/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i7&v=3)
+            format("woff2"),
+          url(https://use.typekit.net/af/1ea53e/00000000000000007735e61d/30/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i7&v=3)
+            format("woff"),
+          url(https://use.typekit.net/af/1ea53e/00000000000000007735e61d/30/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i7&v=3)
+            format("opentype");
+        font-weight: 700;
+        font-style: italic;
+        font-stretch: normal;
+        font-display: auto;
+      }
+      @font-face {
+        font-family: proxima-nova-condensed;
+        src: url(https://use.typekit.net/af/669f97/00000000000000007735e623/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3)
+            format("woff2"),
+          url(https://use.typekit.net/af/669f97/00000000000000007735e623/30/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3)
+            format("woff"),
+          url(https://use.typekit.net/af/669f97/00000000000000007735e623/30/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3)
+            format("opentype");
+        font-weight: 400;
+        font-style: normal;
+        font-stretch: normal;
+        font-display: auto;
+      }
+      @font-face {
+        font-family: proxima-nova-condensed;
+        src: url(https://use.typekit.net/af/4d69d6/00000000000000007735e62c/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3)
+            format("woff2"),
+          url(https://use.typekit.net/af/4d69d6/00000000000000007735e62c/30/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3)
+            format("woff"),
+          url(https://use.typekit.net/af/4d69d6/00000000000000007735e62c/30/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3)
+            format("opentype");
+        font-weight: 400;
+        font-style: italic;
+        font-stretch: normal;
+        font-display: auto;
+      }
+      @font-face {
+        font-family: proxima-nova-extra-condensed;
+        src: url(https://use.typekit.net/af/de3701/00000000000000007735e618/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i7&v=3)
+            format("woff2"),
+          url(https://use.typekit.net/af/de3701/00000000000000007735e618/30/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i7&v=3)
+            format("woff"),
+          url(https://use.typekit.net/af/de3701/00000000000000007735e618/30/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i7&v=3)
+            format("opentype");
+        font-weight: 700;
+        font-style: italic;
+        font-stretch: normal;
+        font-display: auto;
+      }
+      @font-face {
+        font-family: proxima-nova-extra-condensed;
+        src: url(https://use.typekit.net/af/7cc641/00000000000000007735e60b/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3)
+            format("woff2"),
+          url(https://use.typekit.net/af/7cc641/00000000000000007735e60b/30/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3)
+            format("woff"),
+          url(https://use.typekit.net/af/7cc641/00000000000000007735e60b/30/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3)
+            format("opentype");
+        font-weight: 700;
+        font-style: normal;
+        font-stretch: normal;
+        font-display: auto;
+      }
+      @font-face {
+        font-family: proxima-nova-extra-condensed;
+        src: url(https://use.typekit.net/af/6a4fa5/00000000000000007735e629/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3)
+            format("woff2"),
+          url(https://use.typekit.net/af/6a4fa5/00000000000000007735e629/30/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3)
+            format("woff"),
+          url(https://use.typekit.net/af/6a4fa5/00000000000000007735e629/30/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3)
+            format("opentype");
+        font-weight: 400;
+        font-style: italic;
+        font-stretch: normal;
+        font-display: auto;
+      }
+      @font-face {
+        font-family: proxima-nova-extra-condensed;
+        src: url(https://use.typekit.net/af/4c1fee/00000000000000007735e620/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3)
+            format("woff2"),
+          url(https://use.typekit.net/af/4c1fee/00000000000000007735e620/30/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3)
+            format("woff"),
+          url(https://use.typekit.net/af/4c1fee/00000000000000007735e620/30/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3)
+            format("opentype");
+        font-weight: 400;
+        font-style: normal;
+        font-stretch: normal;
+        font-display: auto;
+      }
+    </style>
+    <script type="text/javascript">
+      try {
+        Typekit.load();
+      } catch (e) {}
+    </script>
+    <!--[if lt IE 9
+      ]><script
+        src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"
+        type="text/javascript"
+      ></script
+    ><![endif]-->
+    <script type="text/javascript">
+      !(function (o, c) {
+        var n = c.documentElement,
+          t = " w-mod-";
+        (n.className += t + "js"),
+          ("ontouchstart" in o ||
+            (o.DocumentTouch && c instanceof DocumentTouch)) &&
+            (n.className += t + "touch");
+      })(window, document);
+    </script>
+    <link
+      href = "{% static 'logo1.png' %}"
+      rel="shortcut icon"
+      type="image/x-icon"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+      crossorigin="anonymous"
+    ></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "UA-137660360-1");
+    </script>
+  </head>
+
+  <style>
+    @media screen and (max-width: 900px) {
+      #our-mission {
+          display: none;
+      }
+      }
+  </style>
+
+
+  <body
+    class="body"
+    data-new-gr-c-s-check-loaded="14.1108.0"
+    data-gr-ext-installed=""
+  >
+    {% load static %}
+    <div
+      data-collapse="medium"
+      data-animation="default"
+      data-duration="400"
+      data-easing="ease"
+      data-easing2="ease"
+      role="banner"
+      class="navbar-3 w-nav"
+    >
+      <div class="container-3" style="padding-top=0;">
+        <a
+          href="/"
+          aria-current="page"
+          class="brand-2 w-nav-brand w--current"
+          aria-label="home"
+          ><div class="div-block-12">
+            <img class="image-11" src="{% static "logo1.png" %}" alt="LOGO" sizes="(max-width: 479px) 47.171875px,
+            (max-width: 991px) 48px, 72px" title="Driver Alertness System"
+            srcset="{% static "logo1.png" %}" />
+          </div></a
+        >
+        <nav
+          role="navigation"
+          class="nav-menu-3 right-align w-nav-menu"
+          style="transform: translateY(0px) translateX(0px)"
+        >
+          <a
+            href="#home"
+            title="About the product"
+            class="nav-link-5 w-nav-link"
+            >HOME</a
+          ><a
+            href="#our-mission"
+            title="our mission"
+            class="nav-link-6 w-nav-link"
+            >Applications</a
+          ><a href="#services" title="Services we provide" class="nav-link-6 w-nav-link"
+            >SERVICES</a
+          ><a
+            href="#sub"
+            title="Available subscriptions"
+            class="nav-link-6 mobile-shown w-nav-link"
+            >SUBSCRIPTIONS</a
+          >
+          <a
+            data-toggle="modal" data-target="#login-modal"
+            title="User Login"
+            class="nav-link-6 mobile-shown w-nav-link"
+            >LOGIN</a
+          >
+        </nav>
+        <nav
+          role="navigation"
+          class="nav-menu-3 w-nav-menu"
+          style="transform: translateY(0px) translateX(0px)"
+        >
+          <a
+            href="#sub"
+            title="Available subscriptions"
+            class="nav-link-6 mobile-hidden w-nav-link"
+            >SUBSCRIPTIONS</a
+          ><a
+            data-toggle="modal" data-target="#login-modal"
+            title="user login"
+            class="nav-link-6 mobile-hidden w-nav-link"
+            >LOGIN</a
+          >
+        </nav>
+        <div
+          class="menu-button-2 w-nav-button"
+          style="-webkit-user-select: text"
+          aria-label="menu"
+          role="button"
+          tabindex="0"
+          aria-controls="w-nav-overlay-0"
+          aria-haspopup="menu"
+          aria-expanded="false"
+        >
+          <div class="icon-2 w-icon-nav-menu"></div>
+        </div>
+      </div>
+      <div
+        class="w-nav-overlay"
+        data-wf-ignore=""
+        id="w-nav-overlay-0"
+        style="display: none"
+      ></div>
+    </div>
+     <!-- Modal -->
+
+     <!-- Modal -->
+    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <form method="post" action="{% url 'login_view' %}">
+              {% csrf_token %} {% if error %}
+              <div class="alert alert-danger" role="alert">{{ error }}</div>
+              {% endif %}
+
+              <div class="banner">
+                <h1 class="header heading-1">Login</h1>
+              </div>
+            <hr/>
+              <div class="item" style="display:flex;flex-direction:column;justify-content:center;align-items:center">
+                <p class="paragraph">Email</p>
+                <div class="name-item">
+                  <input
+                    class="input"
+                    type="username"
+                    name="username"
+                    id="username"
+                    required
+                    style="border: 0px; border-bottom:1px solid black;"
+                  />
+                </div>
+              </div>
+              <br/>
+              <div class="item" style="display:flex;flex-direction:column;justify-content:center;align-items:center">
+                <p  class="paragraph">Password</p>
+                <div class="name-item">
+                <input
+                  type="password"
+                  class="input"
+                  name="password"
+                  id="password"
+                  required
+                  style="border: 0px; border-bottom:1px solid black;"
+                />
+              </div>
+              </div>
+              <br/>
+
+              <div class="btn-block btn" style="display:flex;justify-content:center;">
+                <button class="button-copy w-button" type="submit" href="" style="width:30%">
+                  LOGIN
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+     {% comment %} <--Modal end--> {% endcomment %}
+    <div
+      data-w-id="50a7b5c2-0823-7860-cc15-1e236cdd796c"
+      class="hero-image wf-section"
+    >
+      <div class="div-block" style = "background-image: url({% static "banner.jpg" %});">
+        <h1 class="banner-text">Drive Safe Drive Smoothly</h1>
+        <div
+          data-w-id="96f0a2ab-01e5-7020-47be-03c28a8918f1"
+          style="
+            opacity: 1;
+            transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg)
+              rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+            transform-style: preserve-3d;
+          "
+          class="w-layout-grid grid-copy"
+        >
+          <a title="Call inquiry" href="tel:3129661989" class="button-copy w-button"
+            >QUICK INQUIRY  </a
+          ><a
+            href="mailto:najmal.bese19seecs@seecs.edu.pk"
+            title="Email query"
+            class="button-copy w-button"
+            >EMAIL NOW</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <div id="Welcome" class="welcome wf-section">
+      <div class="main-wrap-100">
+        <div
+          data-w-id="bb5a89ff-7d5b-9769-ce03-1feeb3f6deff"
+          style="
+            opacity: 1;
+            transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg)
+              rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+            transform-style: preserve-3d;
+          "
+          class="container-2 w-container"
+        >
+          <h1 class="heading-1">DRIVER ALERTNESS SYSTEM</h1>
+          <p class="paragraph">
+            The driver monitoring system, also known as driver 
+            attention monitor, is a vehicle safety system to 
+            assess the driver's alertness and warn the driver 
+            if needed and eventually apply the brakes. It is
+            powered by Computer Vision AI services that monitors
+            driver's face.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div id="home" class="services wf-section">
+      <div class="main-wrap-100">
+        <div class="columns w-row">
+          <div class="column-2 w-col w-col-6">
+            <div
+              data-w-id="f6946ba6-cf13-77cd-09e5-e0b2937ff793"
+              style="
+                opacity: 1;
+                transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1)
+                  rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+                transform-style: preserve-3d;
+              "
+              class="div-block-4"
+            >
+              <img
+                class="image-4"
+                src="{% static "images/home_1.png" %}"
+                alt="Sleepy man"
+                sizes="(max-width: 767px) 90vw, (max-width: 991px) 44vw, (max-width: 1919px) 43vw, 617.75px"
+                title="Drowsiness Detection"
+                srcset="{% static "images/home_1.png" %}"
+              />
+            </div>
+            <div class="div-block-3">
+              <div
+                data-w-id="b7e07156-557b-21c4-6c19-521ef5031bd0"
+                style="
+                  opacity: 1;
+                  transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1)
+                    rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+                  transform-style: preserve-3d;
+                "
+                class="text-block"
+              >
+              Driver Alert Monitoring System is designed to accurately 
+              predict and identify situations where drowsiness and fatigue may be
+              setting into a driver and the driver behaviour is not seems to be good for safe driving.
+              </div>
+            </div>
+          </div>
+          <div class="column-2 w-col w-col-6">
+            <div
+              data-w-id="f6946ba6-cf13-77cd-09e5-e0b2937ff793"
+              style="
+                opacity: 1;
+                transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1)
+                  rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+                transform-style: preserve-3d;
+              "
+              class="div-block-4"
+            >
+              <img
+                class="image-4"
+                src="{% static "images/home_2.jpg" %}"
+                alt="women driving safely under monitored system"
+                sizes="(max-width: 767px) 90vw, (max-width: 991px) 44vw, (max-width: 1919px) 43vw, 617.75px"
+                title="Stay Alert"
+                srcset="{% static "images/home_2.jpg" %}"
+              />
+            </div>
+            <div class="div-block-3">
+              <div
+                data-w-id="b7e07156-557b-21c4-6c19-521ef5031bd0"
+                style="
+                  opacity: 1;
+                  transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1)
+                    rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+                  transform-style: preserve-3d;
+                "
+                class="text-block"
+              >
+              Driver Alert Monitoring System is designed not only to accurately predict and 
+              identify situations where drowsiness and fatigue may be setting into a driver 
+              but it also alert the driver through buzzer.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="columns w-row">
+          <div class="column-2 w-col w-col-6">
+            <div
+              data-w-id="f6946ba6-cf13-77cd-09e5-e0b2937ff793"
+              style="
+                opacity: 1;
+                transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1)
+                  rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+                transform-style: preserve-3d;
+              "
+              class="div-block-4"
+            >
+              <img
+                class="image-4"
+                src="{% static "images/home_3.png" %}"
+                alt="Trucks on highway"
+                sizes="(max-width: 767px) 90vw, (max-width: 991px) 44vw, (max-width: 1919px) 43vw, 617.75px"
+                title="Transportation"
+                srcset="{% static "images/home_3.png" %}"
+              />
+            </div>
+            <div class="div-block-3">
+              <div
+                data-w-id="b7e07156-557b-21c4-6c19-521ef5031bd0"
+                style="
+                  opacity: 1;
+                  transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1)
+                    rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+                  transform-style: preserve-3d;
+                "
+                class="text-block"
+              >
+              Drowsy drivers are a sign of danger for highways and can put lives of many
+              at danger. The Driver Alertness Monitoring System is effective for safe transportation. 
+              </div>
+            </div>
+          </div>
+          <div class="column-2 w-col w-col-6">
+            <div
+              data-w-id="f6946ba6-cf13-77cd-09e5-e0b2937ff793"
+              style="
+                opacity: 1;
+                transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1)
+                  rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+                transform-style: preserve-3d;
+              "
+              class="div-block-4"
+            >
+              <img
+                class="image-4"
+                src="{% static "images/home_4.png" %}"
+                alt="A happy family in a car"
+                sizes="(max-width: 767px) 90vw, (max-width: 991px) 44vw, (max-width: 1919px) 43vw, 617.75px"
+                title="Safe Ride"
+                srcset="{% static "images/home_4.png" %}"
+              />
+            </div>
+            <div class="div-block-3">
+              <div
+                data-w-id="b7e07156-557b-21c4-6c19-521ef5031bd0"
+                style="
+                  opacity: 1;
+                  transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1)
+                    rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+                  transform-style: preserve-3d;
+                "
+                class="text-block"
+              >
+              Driver Alertness Monitoring System ensures that you and your
+              falmiy have a safe ride without the danger of any accident caused due
+              to any unusual driving behaviour.
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+    </div>
+
+    {% comment %} ---------APPLICATIONS----------- {% endcomment %}
+    <div id="our-mission" title="APPLICATIONS" class="section-2 wf-section">
+      <div class="coffe-back-groud main-wrap hero-image" style="background-image: radial-gradient(circle farthest-corner at 50% 50%,
+      hsla(0, 0%, 100%, 0.8), 
+      hsla(0, 0%, 100%, 0.3) 80%,
+      hsla(0, 0%, 100%, 0.9)),
+      url({% static "App_banner.jpg" %});">
+      <div class="card-group">
+        <div class="row">
+          <div
+          data-w-id="2dce4c3c-a4c2-ae10-b5d2-2c7dda47fe1e"
+          style="
+            width=80%
+            opacity: 1;
+              rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+            transform-style: preserve-3d;
+            transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg);
+            background:transparent;
+            border:None;
+          "
+          class="card col-md-3"
+          > 
+            <img class="card-img-top" src={% static "images/app_1.jpg" %}>
+            <div class="card-body">
+              <h3 class="heading-1-copy-copy" style="color:black;">COMMERCIAL FLEET</h3>
+              <p class="text-block-3-dark" style="color:black;">
+              Protect your fleet and keep your drivers safe 
+              with our Driver Alertness System. Our advanced
+              technology can detect drowsiness and lert drivers
+              before an accident occurs, reducing the risk of
+              collisions and increasing productivity.</p>
+            </div>
+          </div>
+
+          <div
+          data-w-id="2dce4c3c-a4c2-ae10-b5d2-2c7dda47fe1e"
+          style="
+            width=80%
+            opacity: 1;
+              rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+            transform-style: preserve-3d;
+            transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg);
+            background:transparent;
+            border:None;
+          "
+          class="card col-md-3"
+          > 
+            <img class="card-img-top" src={% static "images/app_2.png" %}>
+            <div class="card-body">
+              <h3 class="heading-1-copy-copy" style="color:black;">PUBLIC TRANSPORT</h3>
+              <p class="text-block-3-dark" style="color:black;">
+                Passenger safety is a top priority in public transportation.
+                 Our Driver Alertness System can help prevent accidents caused 
+                 by driver fatigue and ensure a smooth, comfortable ride for 
+                 all passengers.
+              </p>
+            </div>
+          </div>
+
+          <div
+          data-w-id="2dce4c3c-a4c2-ae10-b5d2-2c7dda47fe1e"
+          style="
+            opacity: 1;
+              rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+            transform-style: preserve-3d;
+            transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg);
+            background:transparent;
+            border:None;
+          "
+          class="card col-md-3"
+          > 
+            <img class="card-img-top" src={% static "images/app_3.png" %}>
+            <div class="card-body">
+              <h3 class="heading-1-copy-copy" style="color:black;">PERSONAL VEHICLES</h3>
+              <p class="text-block-3-dark" style="color:black;">
+              Long drives can be tiring, but our Driver Alertness 
+              System can help you stay alert and focused on the road. 
+              Whether you're driving for work or pleasure, our technology
+              can help you arrive safely at your destination.
+              </p>
+            </div>
+          </div>
+          <div
+          data-w-id="2dce4c3c-a4c2-ae10-b5d2-2c7dda47fe1e"
+          style="
+            width=80%
+            opacity: 1;
+              rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+            transform-style: preserve-3d;
+            transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg);
+            background:transparent;
+            border:None;
+          "
+          class="card col-md-3"
+          > 
+            <img class="card-img-top" src={% static "images/app_4.jpg" %}>
+            <div class="card-body">
+              <h3 class="heading-1-copy-copy" style="color:black;">DRIVER TRAINING</h3>
+              <p class="text-block-3-dark" style="color:black;">
+                The Driver Alertness System isn't just for commercial 
+                fleets and personal vehicles but also in the field of 
+                driver training and education. The system can help 
+                driving schools and instructors to identify and address
+                potential issues before they become a problem.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+        </div>
+
+
+
+    {% comment %} SERVICES {% endcomment %}
+    <div id="services" class="bar-services wf-section" >
+      <div class="main-wrap-100">
+        <div class="div-block-7" style="width:100%">
+          <h3
+            data-w-id="a895e606-adb3-f1f5-342d-9eee514fab4a"
+            style="
+              opacity: 1;
+              transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1)
+                rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+              transform-style: preserve-3d;
+            "
+            class="heading-5-copy"
+          >
+            SERVICES WE OFFER
+          </h3>
+            <div class="columns w-row">
+              <div class="column-2 w-col w-col-3">
+                <div
+                  data-w-id="f6946ba6-cf13-77cd-09e5-e0b2937ff793"
+                  style="
+                    opacity: 1;
+                    transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1)
+                      rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+                    transform-style: preserve-3d;
+                  "
+                  class="div-block-4"
+                >
+                  <img
+                    class="image-4"
+                    src="{% static "images/service_1.png" %}"
+                    alt="Model Updates"
+                    sizes="(max-width: 767px) 90vw, (max-width: 991px) 44vw, (max-width: 1919px) 43vw, 617.75px"
+                    title="Model Update"
+                    srcset="{% static "images/service_1.png" %}"
+                  />
+                </div>
+                <div class="div-block-3">
+                  <div
+                    data-w-id="b7e07156-557b-21c4-6c19-521ef5031bd0"
+                    style="
+                      opacity: 1;
+                      transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1)
+                        rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+                      transform-style: preserve-3d;
+                    "
+                    class="text-block"
+                  >
+                  <h4> REGULAR MODEL UPDATES</h4>
+                  </div>
+                </div>
+              </div>
+              <div class="column-2 w-col w-col-3">
+                <div
+                  data-w-id="f6946ba6-cf13-77cd-09e5-e0b2937ff793"
+                  style="
+                    opacity: 1;
+                    transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1)
+                      rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+                    transform-style: preserve-3d;
+                  "
+                  class="div-block-4"
+                >
+                  <img
+                    class="image-4"
+                    src="{% static "images/service_2.png" %}"
+                    alt="complaints"
+                    sizes="(max-width: 767px) 90vw, (max-width: 991px) 44vw, (max-width: 1919px) 43vw, 617.75px"
+                    title="Complain Registry"
+                    srcset="{% static "images/service_2.png" %}"
+                  />
+                </div>
+                <div class="div-block-3">
+                  <div
+                    data-w-id="b7e07156-557b-21c4-6c19-521ef5031bd0"
+                    style="
+                      opacity: 1;
+                      transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1)
+                        rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+                      transform-style: preserve-3d;
+                    "
+                    class="text-block"
+                  >
+                  <h4>USER COMPLAINT REGISTRY</h4>
+                  </div>
+                </div>
+              </div>
+              <div class="column-2 w-col w-col-3">
+                <div
+                  data-w-id="f6946ba6-cf13-77cd-09e5-e0b2937ff793"
+                  style="
+                    opacity: 1;
+                    transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1)
+                      rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+                    transform-style: preserve-3d;
+                  "
+                  class="div-block-4"
+                >
+                  <img
+                    class="image-4"
+                    src="{% static "images/service_3.jpg" %}"
+                    alt="Email notifications"
+                    sizes="(max-width: 767px) 90vw, (max-width: 991px) 44vw, (max-width: 1919px) 43vw, 617.75px"
+                    title="Notification System"
+                    srcset="{% static "images/service_3.jpg" %}"
+                  />
+                </div>
+                <div class="div-block-3">
+                  <div
+                    data-w-id="b7e07156-557b-21c4-6c19-521ef5031bd0"
+                    style="
+                      opacity: 1;
+                      transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1)
+                        rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+                      transform-style: preserve-3d;
+                    "
+                    class="text-block"
+                  >
+                  <h4>EMAIL & SMS NOTIFICATION</h4> 
+                  </div>
+                </div>
+              </div>
+              <div class="column-2 w-col w-col-3">
+                <div
+                  data-w-id="f6946ba6-cf13-77cd-09e5-e0b2937ff793"
+                  style="
+                    opacity: 1;
+                    transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1)
+                      rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+                    transform-style: preserve-3d;
+                  "
+                  class="div-block-4"
+                >
+                  <img
+                    class="image-4"
+                    src="{% static "images/service_4.jpg" %}"
+                    alt="real time Dashboard metrics"
+                    sizes="(max-width: 767px) 90vw, (max-width: 991px) 44vw, (max-width: 1919px) 43vw, 617.75px"
+                    title="Driver's Alertness Stats Dashboard"
+                    srcset="{% static "images/service_4.jpg" %}"
+                  />
+                </div>
+                <div class="div-block-3">
+                  <div
+                    data-w-id="b7e07156-557b-21c4-6c19-521ef5031bd0"
+                    style="
+                      opacity: 1;
+                      transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1)
+                        rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+                      transform-style: preserve-3d;
+                    "
+                    class="text-block"
+                  >
+                  <h4>REAL TIME DASHBOARD</h4> 
+                  </div>
+                </div>
+              </div>
+            </div>
+    
+          
+        </div>
+      </div>
+    </div>
+    <div class="section-2 wf-section">
+      <div
+        id="sub"
+        title="Subscription"
+        class="main-wrap hero-image"
+        style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+         url({% static "service-banner.jpg" %});"
+      >
+        <div
+          data-w-id="2dce4c3c-a4c2-ae10-b5d2-2c7dda47fe1e"
+          style="
+            opacity: 1;
+            transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg)
+              rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+            transform-style: preserve-3d;
+          "
+          class="div-block-17"
+        >
+          <h2 class="heading-1-copy-copy" style="text-align:center;">BASIC</h2>
+          <h2 class="heading-1-copy" style="text-align:center;">$25 <span style="font-size=50%"> /month</span></h2>
+          <div class="text-block-3-dark">
+            <hr />
+              <div
+                class="list"
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: center;
+                  text-align: center;
+                "
+              >
+                <span>Alertness Tracking</span>
+                <span>Alert Using Buzzer</span>
+                <span>Accident Detection</span>
+                <span>Accident Photage Saving</span>
+                <span>Complain Registry</span>
+              </div>
+          </div>
+          <div class="grid" style="padding:10%;">
+            <a
+              title="Buy Basic Subscription"
+              href="tel:3129661989"
+              class="button-copy w-button"
+              >BUY</a
+            >
+          </div>
+        </div>
+      </div>
+      <div
+        id="sub"
+        title="Subscription"
+        class="main-wrap hero-image"
+        style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+         url({% static "service-banner.jpg" %});"
+      >
+        <div
+          data-w-id="2dce4c3c-a4c2-ae10-b5d2-2c7dda47fe1e"
+          style="
+            opacity: 1;
+            transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg)
+              rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+            transform-style: preserve-3d;
+          "
+          class="div-block-17"
+        >
+          <h2 class="heading-1-copy-copy" style="text-align:center;">PREMIUM</h2>
+          <h2 class="heading-1-copy" style="text-align:center;">$50 <span style="font-size=50%"> /month</span></h2>
+          <div class="text-block-3-dark">
+            <hr />
+              <div
+                class="list"
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: center;
+                  text-align: center;
+                "
+              >
+                <span>Alertness Tracking</span>
+                <span>Alert Using Buzzer</span>
+                <span>Accident Detection</span>
+                <span>Accident Photage Saving</span>
+                <span>Complain Registry</span>
+                <span>Real Time Stats Dashboard</span>
+              </div>
+          </div>
+          <div class="grid" style="padding:10%;">
+            <a
+              title="Buy Premium Membership"
+              href="tel:923129661989"
+              class="button-copy w-button"
+              >BUY</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer wf-section"></div>
+
+    <div class="back-to-top wf-section">
+      <div class="div-block-18">
+        <a href="#Our-services" class="link-block-3-copy w-inline-block"
+          ><div class="heading-5-white">Back to top</div></a
+        ><a
+          href="https://www.seecs.nust.edu.pk"
+          class="link-block-3 w-inline-block"
+          ><div class="heading-6-1">NUST SEECS | seecs@nust.edu.pk</div></a
+        >
+      </div>
+    </div>
+    <script
+      src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=5c4fa1526e804a0b40fd9869"
+      type="text/javascript"
+      integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src = {% static 'home.js' %}
+      type="text/javascript"
+    ></script>
+    <!--[if lte IE 9
+      ]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script
+    ><![endif]-->
+  </body>
+</html>
