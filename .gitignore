@@ -2,3 +2,9 @@
 /.idea/
 /training/.ipynb_checkpoints/
 /training/facial-landmark-extraction/.ipynb_checkpoints/
+*.pyc
+.env
+__pycache__/
+
+training/assets/
+
