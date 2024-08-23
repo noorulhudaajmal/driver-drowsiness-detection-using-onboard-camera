@@ -1,83 +1,61 @@
 import cv2 as cv
-import dlib
 import numpy as np
-import os
-from keras.models import load_model
-import threading
+from collections import deque
+from threading import Thread
 
-
-def beep():
-    os.system("beep -f 1000 -l 3000")
-
-
-def get_gray(img):
-    return cv.cvtColor(img, cv.COLOR_BGR2GRAY)
-
-
-class FaceDetector:
-    def __init__(self):
-        self.detector = dlib.get_frontal_face_detector()
-        self.predictor = dlib.shape_predictor("detectors/shape_predictor_68_face_landmarks.dat")
-
-    def detect(self, image):
-        # gray = get_gray(image)
-        face_rectangles = self.detector(image, 1)
-        if len(face_rectangles) == 0:
-            return -1
-        face_landmarks = self.predictor(image, face_rectangles[0])
-        face_landmarks = np.array([[p.x, p.y] for p in face_landmarks.parts()])
-        return face_landmarks
-
-
-class YawnDetector:
-    def __init__(self):
-        self.model = load_model("models/yawn_model.h5")
-
-    def predict(self, image):
-        image = cv.resize(image, (256, 256))
-        image = np.expand_dims(image, axis=0)
-        prediction = self.model.predict(image)[0][0]
-        return prediction
-
-
-class BlinkDetector:
-    def __init__(self):
-        self.model = load_model("models/blink_model.h5")
-
-    def predict(self, image):
-        image = cv.resize(image, (256, 256))
-        image = np.expand_dims(image, axis=0)
-        prediction = self.model.predict(image)[0][0]
-        return prediction
+from face_detector import FaceDetector
+from lite_models import YawningModel, BlinkingModel
+from testing.processing_functions import get_gray
+from utils import beep, label_face
 
 
 class DriverMonitor:
-    def __init__(self):
-        self.blink_model = BlinkDetector()
-        self.yawn_model = YawnDetector()
-        self.face_detector = FaceDetector()
+    def __init__(self, blink_model_path, yawn_model_path, shape_predictor_path):
+        self.face_detector = FaceDetector(shape_predictor_path)
+        self.blink_model = BlinkingModel(blink_model_path)
+        self.yawn_model = YawningModel(yawn_model_path)
 
-    def get_roi(self, landmarks, roi_keypoints):
-        x_min = np.min(landmarks[roi_keypoints][:, 0])
-        x_max = np.max(landmarks[roi_keypoints][:, 0])
-        y_min = np.min(landmarks[roi_keypoints][:, 1])
-        y_max = np.max(landmarks[roi_keypoints][:, 1])
-        return x_min, x_max, y_min, y_max
+        # Queue for storing blink and yawn states
+        queue_size = 20
+        self.blinks_queue = deque([0] * queue_size, maxlen=queue_size)
+        self.yawns_queue = deque([0] * queue_size, maxlen=queue_size)
 
-    def get_eyes_roi(self, landmarks):
-        l_eye_roi = self.get_roi(landmarks, list(range(36, 42)))
-        r_eye_roi = self.get_roi(landmarks, list(range(42, 48)))
-        return l_eye_roi, r_eye_roi
+        # Weights for drowsiness detection
+        self.blink_weight = 0.70
+        self.yawn_weight = 0.30
+        self.DROWSINESS_THRESHOLD = 0.65
 
-    def get_mouth_roi(self, landmarks):
-        mouth_roi = self.get_roi(landmarks, list(range(48, 68)))
-        return mouth_roi
+        # Warm-up period
+        self.warmup_frames = 5
+        self.frame_count = 0
 
     def predict_blink(self, eye_roi):
-        return self.blink_model.predict(eye_roi)
+        return self.blink_model.predict(get_gray(eye_roi))
 
     def predict_yawn(self, mouth_roi):
-        return self.yawn_model.predict(mouth_roi)
+        return self.yawn_model.predict(get_gray(mouth_roi))
+
+    def detect_drowsiness(self, image, landmarks):
+        l_eye_roi, r_eye_roi = self.face_detector.get_eyes_roi(image, landmarks)
+        mouth_roi = self.face_detector.get_mouth_roi(image, landmarks)
+
+        l_eye_blink = int(self.predict_blink(l_eye_roi) < 0.5)
+        r_eye_blink = int(self.predict_blink(r_eye_roi) < 0.5)
+        is_yawning = int(self.predict_yawn(mouth_roi) > 0.5)
+
+        # Updating queues
+        self.blinks_queue.append(l_eye_blink)
+        self.blinks_queue.append(r_eye_blink)
+        self.yawns_queue.append(is_yawning)
+
+        # the weighted rolling average
+        blink_avg = sum(self.blinks_queue) / len(self.blinks_queue)
+        yawn_avg = sum(self.yawns_queue) / len(self.yawns_queue)
+
+        # drowsiness score
+        drowsiness_score = (self.blink_weight * blink_avg) + (self.yawn_weight * yawn_avg)
+
+        return drowsiness_score
 
     def run(self, video_path):
         cap = cv.VideoCapture(video_path)
@@ -85,73 +63,46 @@ class DriverMonitor:
         cap.set(4, 280)  # height
         cap.set(10, 50)  # brightness
 
-        blinks = []
-        yawns = []
-
-        sec = 0
-        frame_rate = 1
-        success, image = cap.read()
-        per_close = 0
-
-        # start beeping thread
-        beep_thread = threading.Thread(target=beep)
-        # beep_thread.start()
-        o=1
-        while success:
-            sec = sec + frame_rate
-            sec = round(sec, 2)
-            image = get_gray(image)
-            s = self.face_detector.detect(image)
-
-            if isinstance(s, np.ndarray):
-                l_eye_roi, r_eye_roi = self.get_eyes_roi(s)
-                mouth_roi = self.get_mouth_roi(s)
-
-                l_eye_blink = self.predict_blink(image[l_eye_roi[2]:l_eye_roi[3], l_eye_roi[0]:l_eye_roi[1]])
-                r_eye_blink = self.predict_blink(image[r_eye_roi[2]:r_eye_roi[3], r_eye_roi[0]:r_eye_roi[1]])
-                mouth_yawn = self.predict_yawn(image[mouth_roi[2]:mouth_roi[3], mouth_roi[0]:mouth_roi[1]])
-
-                cv.imwrite(f"mouth_{o}.png", image[mouth_roi[2]:mouth_roi[3], mouth_roi[0]:mouth_roi[1]])
-                o+=1
-
-                # blinks.append(l_eye_blink and r_eye_blink)
-                blinks.append(r_eye_blink)
-                blinks.append(l_eye_blink)
-
-                yawns.append(mouth_yawn)
-
-                mouth = cv.rectangle(image, (s[48][0] - 5, s[51][1] - 5), (s[54][0] + 5, s[57][1] + 8), color=(255, 1, 1))
-                # left eye
-                left_eye = cv.rectangle(image, (s[18][0] - 5, s[18][1] - 5), (s[21][0] + 5, s[41][1] + 8), color=(255, 1, 1))
-                # right eye
-                right_eye = cv.rectangle(image, (s[22][0] - 5, s[22][1] - 5), (s[25][0] + 5, s[46][1] + 5), color=(255, 1, 1))
-
-                if len(blinks) >= 5:
-                    b = blinks[-5:]
-                    b = np.ceil(b)
-                    w = yawns[-5:]
-                    w = np.ceil(w)
-                    per_close = 0.75 * (list(b).count(1) / len(b)) + (0.25 * (list(w).count(1) / len(w)))
-
-                if per_close > 0.55:
-                    # start beeping thread if not already started
-                    # if not beep_thread.is_alive():
-                    beep_thread = threading.Thread(target=beep)
-                    beep_thread.start()
-                    image = cv.putText(image, " --- DROWSY", (50, 50), fontFace=cv.FONT_HERSHEY_SIMPLEX, fontScale=1,
-                                   color=(255, 1, 1))
-
-                cv.imshow("Results", image)
-
+        while True:
             success, image = cap.read()
-
-            if cv.waitKey(1) & 0xFF == ord("q"):
+            if not success:
                 break
+
+            landmarks = self.face_detector.detect(image)
+            if isinstance(landmarks, np.ndarray):
+                drowsiness_score = self.detect_drowsiness(image, landmarks)
+                labeled_image = label_face(image, landmarks)
+
+                if self.frame_count > self.warmup_frames:
+                    if drowsiness_score > self.DROWSINESS_THRESHOLD:
+                        Thread(target=beep).start()
+                        labeled_image = cv.putText(labeled_image, " --- DROWSY", (50, 50), fontFace=cv.FONT_HERSHEY_SIMPLEX,
+                                                   fontScale=1, color=(255, 1, 1))
+                    else:
+                        labeled_image = cv.putText(labeled_image, " --- ALERT", (50, 50), fontFace=cv.FONT_HERSHEY_SIMPLEX,
+                                                   fontScale=1, color=(0, 255, 0))
+                else:
+                    labeled_image = cv.putText(labeled_image, " --- INITIALIZING", (50, 50), fontFace=cv.FONT_HERSHEY_SIMPLEX,
+                                               fontScale=1, color=(255, 255, 0))
+            else:
+                labeled_image = cv.putText(image, "DRIVER IS NOT FACING FRONT", (150, 150), fontFace=cv.FONT_HERSHEY_SIMPLEX,
+                                           fontScale=1, color=(0, 0, 255))
+
+            cv.imshow("Driver Monitoring", labeled_image)
+            if cv.waitKey(1) & 0xFF == ord('q'):
+                break
+
+            self.frame_count += 1
 
         cap.release()
         cv.destroyAllWindows()
 
 
-monitor = DriverMonitor()
-#
-monitor.run(r'test-sets/ghi.mp4')
+if __name__ == "__main__":
+    # model and shape predictor paths
+    blink_model_path = "models/blink_model.tflite"
+    yawn_model_path = "models/yawn_model.tflite"
+    shape_predictor_path = "../training/assets/detector/shape_predictor_68_face_landmarks.dat"
+
+    monitor = DriverMonitor(blink_model_path, yawn_model_path, shape_predictor_path)
+    monitor.run("video_input/1.mp4")

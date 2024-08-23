@@ -1,2 +1,4 @@
 .idea
 /.idea/
+/training/.ipynb_checkpoints/
+/training/facial-landmark-extraction/.ipynb_checkpoints/

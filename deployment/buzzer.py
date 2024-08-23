@@ -1,23 +1,51 @@
-import os
+import RPi.GPIO as GPIO
+import time
 
-def beep():
-    # os.system("echo -n '\a';sleep 0.2;" * x)
-    os.system("beep -f 1000q -l 1500")
+# GPIO pins
+BUZZER_PIN = 19
+SENSOR_PIN = 17
+
+def setup():
+    GPIO.setwarnings(False)
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(BUZZER_PIN, GPIO.OUT, initial=GPIO.LOW)
+    GPIO.setup(SENSOR_PIN, GPIO.IN)
 
 
-# set up a mock system call that logs arguments to a list
-call_log = []
+def detect_accident():
+    """
+    Detects if an accident has occurred based on the sensor input.
+    """
+    sensor_value = GPIO.input(SENSOR_PIN)
+    if sensor_value == GPIO.HIGH:
+        return True
+    return False
 
 
-def mock_system_call(cmd):
-    call_log.append(cmd)
+def trigger_buzzer(accident_detected):
+    """
+    Controls the buzzer based on accident detection.
+    """
+    if accident_detected:
+        GPIO.output(BUZZER_PIN, GPIO.HIGH)
+    else:
+        GPIO.output(BUZZER_PIN, GPIO.LOW)
 
 
-os.system = mock_system_call
+def main():
+    setup()
 
-# call the buzzer function
-beep()
+    while True:
+        accident_detected = detect_accident()
+        trigger_buzzer(accident_detected)
+        time.sleep(0.1)  # delay
 
-# verify that the system call was made with the expected arguments
-assert len(call_log) == 1
-assert call_log[0] == "beep -f 1000q -l 1500"
+
+# if __name__ == '__main__':
+#     try:
+#         main()
+#     except KeyboardInterrupt:
+#         GPIO.cleanup()
+#     except Exception as e:
+#         print(f"An error occurred: {e}")
+#         GPIO.cleanup()
