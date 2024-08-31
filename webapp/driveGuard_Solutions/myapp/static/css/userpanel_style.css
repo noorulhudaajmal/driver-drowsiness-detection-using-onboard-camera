@@ -1,0 +1,519 @@
+@font-face {
+    font-family: china;
+    src: url(./3856NeueMachina.woff2);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:Verdana, Geneva, Tahoma, sans-serif
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+html body {
+    overflow-x: visible;
+}
+
+
+/* body {
+    overflow-x: hidden;
+    font-family: china;
+} */
+
+section {
+    width: 100%;
+    height: 100%;
+}
+
+header {
+    height: 12%;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 50px;
+    background: transparent;
+}
+
+
+.logo-div {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+nav h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+}
+
+#nav-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+#nav-links h4 {
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+    margin: 0;
+    transition: color 0.3s ease;
+}
+
+nav button {
+    padding: 10px 20px;
+    text-decoration: none;
+    border: 1px solid white;
+    transition: background-color 0.3s ease;
+    border: 2px solid #000;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.4);
+    transition: all 300ms ease;
+    font-family: proxima-nova, sans-serif;
+    color: #000;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+nav button:hover {
+    background-color: black;
+    color: white;
+}
+
+.home-section {
+    width: 100%;
+    height: 88%;
+    position: relative;
+    background-color:#7b8788;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 100000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.popup__content {
+    background-color: rgba(170, 170, 170, 0.9);
+    margin: 8% auto 0 auto;
+    padding: 5%;
+    border: 1px solid #888;
+    width: 35%;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 10px;
+    overflow: inherit;
+    backdrop-filter: blur(10%);
+}
+
+.popup__buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10%;
+}
+
+.popup__button {
+    padding: 10px 20px;
+    text-decoration: none;
+    border: 1px solid white;
+    transition: background-color 0.3s ease;
+    border: 2px solid #000;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.4);
+    transition: all 300ms ease;
+    font-family: proxima-nova, sans-serif;
+    color: #000;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    cursor: pointer;
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.popup__button:hover {
+    background-color: black;
+    color: white;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1%;
+    padding: 2%;
+    background-color: transparent;
+}
+
+.complaints {
+    width: 60%;
+    height: 95%;
+    background-color: rgba(72, 72, 72, 0.5);
+}
+
+.updates {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    height: 95%;
+    gap:2%;
+}
+
+.notifications {
+    width: 100%;
+    height: 50%;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    color: rgb(245, 241, 233);
+    background-color: rgba(75, 72, 72, 0.5);
+    backdrop-filter: blur(10px);
+
+}
+
+.notifications h2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+}
+
+.notification-div {
+    margin-top: 20px;
+    padding: 20px 10px;
+    border-top: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: scroll;
+}
+
+.notification-item {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid white;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.notification-item span {
+    color: lightgray;
+    font-size: 0.8rem;
+}
+
+.notification-item p {
+    margin-top: 10px;
+}
+
+.notification-div {
+    margin-top: 20px;
+}
+
+.models {
+    width: 100%;
+    height: 47%;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    color: rgb(245, 241, 233);
+    background-color: rgba(75, 72, 72, 0.5);
+    backdrop-filter: blur(10px);
+
+}
+
+.models h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.models-div {
+    margin-top: 20px;
+    padding: 20px 10px;
+    border-top: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.model-item {
+    /* border: 1px solid #ddd; */
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.model-item h3 {
+    margin: 0 0 10px;
+}
+
+.downloadable-models {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 10px;
+    flex-direction: column;
+}
+
+.downloadable-models p {
+    margin-bottom: 5px;
+}
+
+.downloadable-models p a{
+    text-decoration: none;
+    color: white;
+}
+
+.container {
+    display: flex;
+}
+
+.complaints {
+    display: flex;
+    width: 70%;
+}
+
+.complaints-sidebar {
+    width: 30%;
+    border-right: 1px solid #ddd;
+    padding: 20px;
+    position: relative;
+}
+
+.complaints-sidebar h2 {
+    margin-bottom: 20px;
+}
+
+.complaints-sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.complaint-item {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #ddd;
+}
+
+.complaint-item p {
+    margin: 0;
+    font-weight: bold;
+}
+
+.complaint-item span {
+    font-size: 12px;
+    color: white;
+}
+
+.complaint-item:hover {
+    background-color: #838383;
+}
+
+.complaints-detail {
+    width: 70%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-header {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.chat-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+    max-height: 90%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.message {
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.user-message {
+    background-color: #e1f5fe;
+    align-self: flex-start;
+}
+
+.admin-response {
+    background-color: #ffebee;
+    align-self: flex-end;
+}
+
+.timestamp {
+    font-size: 12px;
+    color: rgb(73, 73, 73);
+}
+
+.complaint-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+}
+
+.register__complaints {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    width: 100%;
+    position: absolute;
+    top: 80%;
+    left: 0;
+}
+
+.register__complaints button {
+    padding: 8px 20px;
+    text-decoration: none;
+    border: 1px solid black;
+    transition: background-color 0.3s ease;
+    border-radius: 10px;
+    background-color: rgb(199, 191, 191);
+    transition: all 300ms ease;
+    font-family: proxima-nova, sans-serif;
+    color: black;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.register__complaints button:hover {
+    color: white;
+    background-color: black;
+}
+
+#register-complaint-popup .popup__content {
+    height: 60%;
+    padding: 2%;
+    display: flex;
+    flex-direction: row;
+    gap: 5%;
+}
+
+#register-complaint-popup .popup__close {
+    width: 2%;
+    color: black;
+    float: right;
+    font-size: 0.5rem;
+    font-weight: bold;
+}
+
+#register-complaint-popup .popup__close:hover,
+#register-complaint-popup .popup__close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.arrow-left {
+    width: 0;
+    height: 0;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-right: 15px solid black;
+    margin: 15px;
+    cursor: pointer;
+}
+
+.arrow-left:hover {
+    transform: scale(1.1);
+}
+
+
+#register-complaint-popup form {
+    width: 90%;
+    height: 100%;
+    padding: 5% 10%;
+}
+
+#register-complaint-popup p {
+    margin-bottom: 5px;
+}
+
+#register-complaint-popup .item {
+    margin-bottom: 15px;
+}
+
+form .item textarea{
+    height: 120px;
+    width: 100%;
+    border-radius: 5px;
+    background-color: #d3d1d1;
+    color: black;
+    padding: 1%;
+}
+
+#register-complaint-popup button {
+    padding: 8px 20px;
+    text-decoration: none;
+    border: 1px solid black;
+    transition: background-color 0.3s ease;
+    border-radius: 10px;
+    background-color: rgb(199, 191, 191);
+    transition: all 300ms ease;
+    font-family: proxima-nova, sans-serif;
+    color: black;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+#register-complaint-popup button:hover {
+    color: white;
+    background-color: black;
+}

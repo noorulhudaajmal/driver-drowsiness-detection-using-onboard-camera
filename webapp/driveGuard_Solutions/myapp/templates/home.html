@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>DriveGuard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <div class="logo-div">
+          <img src="{% static 'assets/logo.png' %}" width="70" height="50" />
+          <h1>DriveGuard Solutions</h1>
+        </div>
+        <div id="nav-links">
+          <h4><a href="#home">Home</a></h4>
+          <h4><a href="#services">Services</a></h4>
+          <h4><a href="#applications">Applications</a></h4>
+          <h4><a href="#subscription">Subscription</a></h4>
+          <button onclick="openPopup('login-popup')">Login</button>
+        </div>
+      </nav>
+    </header>
+
+    <section class="home-section">
+      <div class="banner-container">
+        <h1 class="banner-text">Drive Safe Drive Smoothly</h1>
+        <div class="button-group">
+          <a title="Call inquiry" href="tel:3129661989" class="home-button">QUICK INQUIRY</a>
+          <a href="mailto:najmal.bese19seecs@seecs.edu.pk" title="Email query" class="home-button">EMAIL NOW</a>
+        </div>
+      </div>
+      <div class="popup" id="login-popup">
+        <div class="popup__content">
+          <span class="popup__close" onclick="closePopup('login-popup')"><div class="arrow-left" id="arrow-left"></div></span>
+
+          {% if error %}
+            <p style="color:red;">{{ error }}</p>
+          {% endif %}
+
+          <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="item">
+              <p>Email</p>
+              <div class="name-item">
+                <input class="input" type="text" name="username" id="username" required />
+              </div>
+            </div>
+            <br />
+            <div class="item">
+              <p>Password</p>
+              <div class="name-item">
+                <input type="password" class="input" name="password" id="password" required />
+              </div>
+            </div>
+            <br />
+            <div class="submit-btn">
+              <button class="login-button" type="submit">LOGIN</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="welcome-section" id="home">
+      <div class="intro-container">
+        <div class="intro-container-left">
+          <h1>Keeping You Alert, Every Mile of the Way.</h1>
+          <p>The DriveGuard Solution provides driver monitoring system, which is a vehicle safety system to assess the driver's alertness and warn the driver if needed and eventually apply the brakes. It is powered by Computer Vision AI services that monitors driver's face.</p>
+        </div>
+        <div class="intro-container-right">
+          <img src="{% static 'assets/intro.jpg' %}" alt="" />
+        </div>
+      </div>
+    </section>
+
+    <section class="services-section" id="services">
+      <div class="services">
+        <h2>Services we Offer</h2>
+      </div>
+
+      <div class="container">
+        <div class="elem left line1">
+          <div class="elem-left">
+            <h4>REGULAR MODEL UPDATES</h4>
+            <p>Our service constantly evolves with regular model updates, ensuring that it adapts to new driving patterns and behaviors. With these updates, the system remains highly accurate, providing up-to-date monitoring to enhance road safety.</p>
+          </div>
+          <div class="elem-right">
+            <img src="{% static 'assets/service_1.png' %}" alt="" />
+          </div>
+        </div>
+        <div class="elem black right line1">
+          <div class="elem-left">
+            <h4>USER COMPLAINT REGISTRY</h4>
+            <p>We prioritize user satisfaction by offering a comprehensive User Complaint Registry. This service allows users to easily log complaints, submit accident report(if any) ensuring that issues are addressed promptly.</p>
+          </div>
+          <div class="elem-right">
+            <img src="{% static 'assets/service_2.png' %}" alt="" />
+          </div>
+        </div>
+        <div class="elem black left line2">
+          <div class="elem-left">
+            <h4>EMAIL & SMS NOTIFICATION</h4>
+            <p>Stay informed with our Email & SMS Notification service, which provides alerts and updates about the model updates and driver alertness reports.</p>
+          </div>
+          <div class="elem-right">
+            <img src="{% static 'assets/service_3.png' %}" alt="" />
+          </div>
+        </div>
+        <div class="elem right line2">
+          <div class="elem-left">
+            <h4>REALTIME ANALYTICS</h4>
+            <p>Our Real-Time Analytics service offers deep insights into driving behaviors, allowing for instant analysis of alertness levels.</p>
+          </div>
+          <div class="elem-right">
+            <img src="{% static 'assets/service_4.png' %}" alt="" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="applications-section" id="applications">
+      <div class="applications">
+        <h2>Applications</h2>
+      </div>
+
+      <div class="container">
+        <div class="applications-box">
+          <div class="application">
+            <img src="{% static 'assets/app_1.png' %}" alt="" />
+            <!-- <i class="ri-refresh-fill"></i> -->
+            <h4>COMMERCIAL FLEET</h4>
+            <p>Protect your fleet and keep your drivers safe with our Driver Alertness System. Our advanced technology can detect drowsiness and alert drivers before an accident occurs, reducing the risk of collisions and increasing productivity.</p>
+          </div>
+          <div class="application border-application">
+            <img src="{% static 'assets/app_2.png' %}" alt="" />
+            <!-- <i class="ri-survey-fill"></i> -->
+            <h4>PUBLIC TRANSPORT</h4>
+            <p>Passenger safety is a top priority in public transportation. Our Driver Alertness System can help prevent accidents caused by driver fatigue and ensure a smooth, comfortable ride for all passengers.</p>
+          </div>
+          <div class="application">
+            <img src="{% static 'assets/app_3.png' %}" alt="" />
+            <!-- <i class="ri-mail-volume-fill"></i> -->
+            <h4>PERSONAL VEHICLES</h4>
+            <p>Long drives can be tiring, but our Driver Alertness System can help you stay alert and focused on the road. Whether you're driving for work or pleasure, our technology can help you arrive safely at your destination.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tagline">
+      <div id="move">
+        <div class="marque">
+          <h1>Wakeful Driving, Powered by Precision</h1>
+          <i class="ri-arrow-right-line"></i>
+        </div>
+
+        <div class="marque">
+          <h1>Wakeful Driving, Powered by Precision</h1>
+          <i class="ri-arrow-right-line"></i>
+        </div>
+        <div class="marque">
+          <h1>Wakeful Driving, Powered by Precision</h1>
+          <i class="ri-arrow-right-line"></i>
+        </div>
+        <div class="marque">
+          <h1>Wakeful Driving, Powered by Precision</h1>
+          <i class="ri-arrow-right-line"></i>
+        </div>
+      </div>
+    </section>
+
+    <section class="subscription-cell" id="subscription">
+      <div class="subscription-container-cell">
+        <div class="subscription-head">
+          <h2>Subscription</h2>
+        </div>
+
+        <div class="subscription-body">
+          <div class="subscription-left subscription-detail-container">
+            <div class="subscription-title">
+              <h1>BASIC</h1>
+            </div>
+            <div class="subscription-detail-body">
+              <div class="subscrition-amount">
+                <h2><span>$25</span> /month</h2>
+              </div>
+              <div class="subscription-offers">
+                <ul>
+                  <li>Alertness Tracking</li>
+                  <li>Alert Using Buzzer</li>
+                  <li>Accident Detection</li>
+                  <li>Accident Photage Saving</li>
+                  <li>Complain Registry</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="subscription-buy-section">
+              <button class="buy-button" onclick="openPopup('register-popup')">BUY</button>
+            </div>
+          </div>
+          <div class="subscription-right subscription-detail-container">
+            <div class="subscription-title">
+              <h1>PREMIUM</h1>
+            </div>
+            <div class="subscription-detail-body">
+              <div class="subscrition-amount">
+                <h2><span>$50</span> /month</h2>
+              </div>
+
+              <div class="subscription-offers">
+                <ul>
+                  <li>Alertness Tracking</li>
+                  <li>Alert Using Buzzer</li>
+                  <li>Accident Detection</li>
+                  <li>Accident Photage Saving</li>
+                  <li>Complain Registry</li>
+                  <li>Real Time Stats Dashboard</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="subscription-buy-section">
+              <button class="buy-button" onclick="openPopup('register-popup')">BUY</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="popup" id="register-popup">
+        <div class="popup_register_content">
+          <span class="popup__close" onclick="closePopup('register-popup')"><div class="arrow-left" id="arrow-left"></div></span>
+
+          {% if error %}
+            <p style="color:red;">{{ error }}</p>
+          {% endif %}
+
+          <form method="post" action="{% url 'register' %}">
+            {% csrf_token %}
+            <div class="item">
+              <p>First Name</p>
+              <div class="name-item">
+                <input class="input" type="text" name="firstname" id="firstname" required />
+              </div>
+            </div>
+            <br />
+
+            <div class="item">
+              <p>Last Name</p>
+              <div class="name-item">
+                <input class="input" type="text" name="lastname" id="lastname" required />
+              </div>
+            </div>
+            <br />
+
+            <div class="item">
+              <p>username</p>
+              <div class="name-item">
+                <input class="input" type="text" name="username" id="username" required />
+              </div>
+            </div>
+            <br />
+
+            <div class="item">
+              <p>Email</p>
+              <div class="name-item">
+                <input class="input" type="text" name="email" id="email" required />
+              </div>
+            </div>
+            <br />
+
+            <div class="item">
+              <p>Password</p>
+              <div class="name-item">
+                <input type="password" class="input" name="password" id="password" required />
+              </div>
+            </div>
+            <br />
+
+            <div class="submit-btn">
+              <button class="register-button" type="submit">Register</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{% static 'script.js' %}"></script>
+
+    <script>
+        {% if messages %}
+            let message = "";
+            {% for message in messages %}
+                message += "{{ message }}\n";
+            {% endfor %}
+            alert(message);
+        {% endif %}
+    </script>
+
+  </body>
+</html>

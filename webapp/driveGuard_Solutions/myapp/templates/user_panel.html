@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>User Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/userpanel_style.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <div class="logo-div">
+                <img src="{% static 'assets/logo.png' %}" width="70" height="50">
+                <h1>DriveGuard Solutions</h1>
+            </div>
+            <div id="nav-links">
+                <h4>Welcome {{ user.first_name }} {{ user.last_name }}</h4>
+                <button onclick="openPopup('logout-popup')">Logout</button>
+            </div>
+        </nav>
+    </header>
+
+    <section class="home-section">
+        <div class="container">
+            <div class="complaints">
+                <div class="complaints-sidebar">
+                    <h2>Complaints</h2>
+                    <ul>
+                        {% for complaint in complaints %}
+                        <li class="complaint-item" data-complaint-id="{{ complaint.complaintID }}"
+                            onclick="openComplaint({{ complaint.complaintID }})"
+                            data-comments="{{ complaint.comments }}" data-footageurl="{{ complaint.footage.url }}"
+                            data-response="{{ complaint.response }}"
+                            data-timestamp="{{ complaint.timestamp|date:'M d, Y H:i' }}"
+                            data-status="{{ complaint.status }}">
+                            <p>{{ complaint.comments|truncatewords:5 }}</p>
+                            <span>{{ complaint.timestamp|date:"M d, Y" }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="register__complaints">
+                        <button onclick="openPopup('register-complaint-popup')">Register Complaint</button>
+                    </div>
+                </div>
+            
+                <div class="complaints-detail" id="complaint-detail">
+                    <div class="chat-header">
+                        <h3>Select a complaint to view details or submit a new complaint</h3>
+                    </div>
+                    <div class="chat-content">
+                        <p>No complaint selected.</p>
+                    </div>
+                    <div class="complaint-status">
+                        <p>Status: <span id="complaint-status">N/A</span></p>
+                    </div>
+                </div>
+            </div>
+            
+
+            <div class="updates">
+                <div class="notifications">
+                    <h2>Notifications</h2>
+                    <div class="notification-div">
+                        {% for notification in notifications %}
+                        <div class="notification-item{% if not notification.is_read %} unread{% endif %}">
+                            <h3>{{ notification.title }}</h3>
+                            <h4><span>{{ notification.timestamp|date:"M d, Y H:i" }}</span></h4>
+                            <p>{{ notification.description }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="models">
+                    <h2>Models</h2>
+                    <div class="models-div">
+                        {% for model in up_models %}
+                        <div class="model-item">
+                            <h3>Model Released on {{ model.timestamp|date:"M d, Y H:i" }}</h3>
+                            <div class="downloadable-models">
+                                <p><a href="{{ model.blink_model.url }}" download><strong>Blink Model   </strong><i class="ri-download-cloud-fill"></i></a></p>
+                            <p><a href="{{ model.yawning_model.url }}" download><strong>Yawning Model   </strong><i class="ri-download-cloud-fill"></i></a></p>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <p>No models available.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="popup" id="logout-popup">
+            <div class="popup__content">
+                <h3>Are you sure you want to logout?</h3>
+                <div class="popup__buttons">
+                    <a href="{% url 'logout' %}" class="popup__button">Yes</a>
+                    <button onclick="closePopup('logout-popup')" class="popup__button">No</button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="popup" id="register-complaint-popup">
+            <div class="popup__content">
+              <span class="popup__close" onclick="closePopup('register-complaint-popup')"><div class="arrow-left" id="arrow-left"></div></span>
+    
+              {% if error %}
+                <p style="color:red;">{{ error }}</p>
+              {% endif %}
+    
+              <form method="post" action="{% url 'submit_complaint' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="item">
+                  <p>Footage</p>
+                  <div class="footage-item">
+                    <input class="input" type="file" name="footage" id="footage" required/>
+                  </div>
+                </div>
+                <br />
+                <div class="item">
+                  <p>Comments</p>
+                  <div class="name-item">
+                    <textarea name="comments" id="comments" maxlength="500" required></textarea>
+                  </div>
+                </div>
+                <br />
+                <div class="submit-btn">
+                  <button class="register-button" type="submit">Submit</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+    </section>
+
+    <script>
+        function openPopup(id) {
+            document.getElementById(id).style.display = 'block';
+        }
+
+        function closePopup(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+
+        function openComplaint(complaintID) {
+            // Select the clicked complaint item using the complaint ID
+            var complaintItem = document.querySelector('.complaint-item[data-complaint-id="' + complaintID + '"]');
+
+            if (complaintItem) {
+                // Extract data attributes from the selected complaint item
+                var comments = complaintItem.getAttribute('data-comments');
+                var response = complaintItem.getAttribute('data-response');
+                var footage = complaintItem.getAttribute('data-footageurl');
+                var timestamp = complaintItem.getAttribute('data-timestamp');
+                var status = complaintItem.getAttribute('data-status');
+
+                // Update the right panel with the selected complaint's details
+                var complaintDetail = document.getElementById('complaint-detail');
+                complaintDetail.innerHTML = `
+            <div class="chat-header">
+                <h3>Complaint Details</h3>
+            </div>
+            <div class="chat-content">
+                <div class="message user-message">
+                    <div class="sender-box">
+                        <p>${comments}</p>
+                         <span>
+                            Footage:
+                            ${footage ? `<a href="${footage}" download>Download</a>` : 'No footage available'}
+                            <br/>
+                        </span>
+                        <span class="timestamp">${timestamp}</span>
+                    </div>
+                </div>
+                <div class="message admin-response">
+                    <div class="receiver-box">
+                        <p>${response}</p>
+                        <span class="timestamp">${timestamp}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="complaint-status">
+                <p>Status: <span id="complaint-status">${status}</span></p>
+            </div>
+        `;
+            }
+        }
+    </script>
+
+</body>
+
+</html>
