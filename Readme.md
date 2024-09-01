@@ -37,15 +37,15 @@ This project implements a real-time Driver Drowsiness Detection System using mac
 
 ## Directory Structure
 
-- **/training/**
+- **training/**
    - Jupyter notebooks for model training.
    - Logic functions for facial detection and feature extraction.
    - Python scripts for converting TensorFlow models to TensorFlow Lite.
 
-- **/deployment/**
+- **deployment/**
    - Contains the main application code, including drowsiness detection, accident detection, and alert logic.
 
-- **/web_portal/**
+- **webapp/**
    - Django application for the web portal.
 
 ## Installation and Setup
